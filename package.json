@@ -15,7 +15,7 @@
     "@prisma/client": "^7.8.0",
     "@tanstack/react-query": "^5.101.1",
     "@uploadcare/react-uploader": "^1.16.0",
-    "better-auth": "^1.6.22",
+    "better-auth": "^1.6.23",
     "clsx": "^2.1.1",
     "dotenv": "^17.4.2",
     "lucide-react": "^1.21.0",
