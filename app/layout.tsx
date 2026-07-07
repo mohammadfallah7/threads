@@ -1,6 +1,8 @@
+import { QueryProvider } from "@/components";
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import { ReactNode } from "react";
+import { Toaster } from "sonner";
 import "./globals.css";
 
 const poppins = Poppins({
@@ -17,7 +19,10 @@ export const metadata: Metadata = {
 const RootLayout = ({ children }: { children: ReactNode }) => {
   return (
     <html lang="en" className={`${poppins.className} h-full antialiased`}>
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <QueryProvider>{children}</QueryProvider>
+        <Toaster richColors />
+      </body>
     </html>
   );
 };
