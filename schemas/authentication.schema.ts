@@ -25,3 +25,5 @@ export const RegisterSchema = z.object({
       "Password can only contain English letters, numbers, and common symbols (@$!%*?&._-).",
     ),
 });
+
+export const LoginSchema = RegisterSchema.omit({ name: true });

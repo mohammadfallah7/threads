@@ -4,6 +4,7 @@ import { useRegister } from "@/hooks";
 import { RegisterSchema } from "@/schemas";
 import { RegisterPayload } from "@/types";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { LucideLoader } from "lucide-react";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 
@@ -13,7 +14,7 @@ export const RegisterForm = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<RegisterPayload>({ resolver: zodResolver(RegisterSchema) });
-  const { mutate } = useRegister();
+  const { mutate, isPending } = useRegister();
 
   function submit(payload: RegisterPayload) {
     mutate(payload);
@@ -60,6 +61,7 @@ export const RegisterForm = () => {
         </div>
 
         <button type="submit" className="auth-btn">
+          {isPending && <LucideLoader className="size-4 animate-spin" />}
           Register
         </button>
       </form>
