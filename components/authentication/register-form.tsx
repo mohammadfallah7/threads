@@ -1,10 +1,15 @@
 import Link from "next/link";
 
-export const LoginForm = () => {
+export const RegisterForm = () => {
   return (
     <div className="flex items-center justify-center flex-col gap-6">
-      <h1 className="text-2xl font-semibold">Login</h1>
+      <h1 className="text-2xl font-semibold">Register</h1>
       <form className="w-full space-y-4">
+        <input
+          type="text"
+          className="auth-input"
+          placeholder="Enter your full name"
+        />
         <input
           type="email"
           className="auth-input"
@@ -16,13 +21,13 @@ export const LoginForm = () => {
           placeholder="Enter your password"
         />
         <button type="submit" className="auth-btn">
-          Login
+          Register
         </button>
       </form>
       <p className="text-sm text-muted">
-        Do not have an account?{" "}
-        <Link href="/register" className="text-primary hover:underline">
-          Sign up
+        Already have an account?{" "}
+        <Link href="/login" className="text-primary hover:underline">
+          Sign in
         </Link>
       </p>
     </div>
