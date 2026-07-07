@@ -22,6 +22,17 @@
   --color-error: var(--error);
 }
 
+@layer components {
+  .auth-input {
+    @apply bg-surface p-3.5 rounded-lg hover:bg-surface-hover transition-colors duration-300 text-sm outline-0 w-full;
+  }
+
+  .auth-btn {
+    @apply bg-primary text-background font-medium w-full py-4 rounded-lg cursor-pointer hover:bg-primary/85 transition-colors duration-300 disabled:opacity-50;
+  }
+}
+
 body {
   background: var(--background);
+  color: var(--primary);
 }
