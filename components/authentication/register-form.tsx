@@ -60,7 +60,7 @@ export const RegisterForm = () => {
           )}
         </div>
 
-        <button type="submit" className="auth-btn">
+        <button disabled={isPending} type="submit" className="auth-btn">
           {isPending && <LucideLoader className="size-4 animate-spin" />}
           Register
         </button>

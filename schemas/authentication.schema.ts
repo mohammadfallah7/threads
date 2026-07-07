@@ -27,3 +27,11 @@ export const RegisterSchema = z.object({
 });
 
 export const LoginSchema = RegisterSchema.omit({ name: true });
+
+export const SetupUsernameSchema = z.object({
+  username: z
+    .string()
+    .trim()
+    .min(3, "Username must be at least 3 characters.")
+    .max(30, "Username cannot exceed 30 characters."),
+});

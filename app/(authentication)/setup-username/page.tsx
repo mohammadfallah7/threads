@@ -8,7 +8,7 @@ const SetupUsernamePage = async () => {
 
   return (
     <AuthLayout>
-      <SetupUsernameForm />
+      <SetupUsernameForm email={session.user.email} />
     </AuthLayout>
   );
 };
