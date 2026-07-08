@@ -1,5 +1,11 @@
-const HomePage = () => {
-  return <div className="text-white">HomePage</div>;
+import { redirect } from "next/navigation";
+import { getSession } from "./actions";
+
+const HomePage = async () => {
+  const session = await getSession();
+
+  if (session?.user) redirect("/feed");
+  else redirect("/login");
 };
 
 export default HomePage;

@@ -1,6 +1,6 @@
+import { getSession } from "@/app/actions";
 import { AuthLayout, RegisterForm } from "@/components";
 import { redirect } from "next/navigation";
-import { getSession } from "../actions";
 
 const RegisterPage = async () => {
   const session = await getSession();

@@ -1,5 +1,5 @@
+import { getSession } from "@/app/actions";
 import { AuthLayout, LoginForm } from "@/components";
-import { getSession } from "../actions";
 import { redirect } from "next/navigation";
 
 const LoginPage = async () => {
