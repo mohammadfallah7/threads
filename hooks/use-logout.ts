@@ -1,19 +1,17 @@
-import { register } from "@/app/(authentication)/register/actions";
+import { logout } from "@/app/actions";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
-export const useRegister = () => {
+export const useLogout = () => {
   const router = useRouter();
 
   return useMutation({
-    mutationFn: register,
+    mutationFn: logout,
     onSuccess: (data) => {
       if (data.success) {
-        toast.success("Welcome to Threads", {
-          description: "Please setup username for your account",
-        });
-        router.replace("/setup-username");
+        toast.success(data.response);
+        router.replace("/login");
       } else {
         toast.error(data.error);
       }

@@ -11,7 +11,7 @@ export const useSetupUsername = () => {
     onSuccess: (data) => {
       if (data.success) {
         toast.success(data.response);
-        router.push("/feed");
+        router.replace("/feed");
       } else {
         toast.error(data.error);
       }

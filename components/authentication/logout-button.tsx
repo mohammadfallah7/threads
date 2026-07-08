@@ -1,11 +1,18 @@
 "use client";
 
-import { LucideLogOut } from "lucide-react";
+import { useLogout } from "@/hooks";
+import { LucideLoader, LucideLogOut } from "lucide-react";
 
 export const LogoutButton = () => {
+  const { mutate, isPending } = useLogout();
+
   return (
-    <button className="aside-btn">
-      <LucideLogOut className="size-6" />
+    <button disabled={isPending} onClick={() => mutate()} className="aside-btn">
+      {isPending ? (
+        <LucideLoader className="size-5 animate-spin" />
+      ) : (
+        <LucideLogOut className="size-6" />
+      )}
     </button>
   );
 };

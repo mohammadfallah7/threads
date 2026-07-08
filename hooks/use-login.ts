@@ -12,12 +12,12 @@ export const useLogin = () => {
       if (data.success) {
         if (data.response?.user.username) {
           toast.success("Welcome back");
-          router.push("/feed");
+          router.replace("/feed");
         } else {
           toast.success("Welcome back", {
             description: "Please setup username for your account",
           });
-          router.push("/setup-username");
+          router.replace("/setup-username");
         }
       } else {
         toast.error(data.error);
