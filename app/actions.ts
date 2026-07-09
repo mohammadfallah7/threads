@@ -1,11 +1,33 @@
 "use server";
 
 import { auth } from "@/lib/auth";
+import prisma from "@/lib/prisma";
 import { headers } from "next/headers";
 
 export async function getSession() {
   try {
     return await auth.api.getSession({ headers: await headers() });
+  } catch (error) {
+    throw new Error(
+      error instanceof Error ? error.message : "Something went wrong",
+    );
+  }
+}
+
+export async function getUserById(id: string) {
+  try {
+    return await prisma.user.findUnique({
+      where: { id },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        username: true,
+        image: true,
+        bio: true,
+        _count: { select: { followers: true, following: true, posts: true } },
+      },
+    });
   } catch (error) {
     throw new Error(
       error instanceof Error ? error.message : "Something went wrong",

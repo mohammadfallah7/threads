@@ -1,32 +1,15 @@
-import { getSession } from "@/app/actions";
-import { ProtectedLayout } from "@/components";
-import Image from "next/image";
+import { getSession, getUserById } from "@/app/actions";
+import { ProtectedLayout, UserProfile } from "@/components";
 
 const ProfilePage = async () => {
   const session = await getSession();
-  const user = session!.user;
+  const user = await getUserById(session!.user.id);
+
+  if (!user) throw new Error("Profile not found");
 
   return (
     <ProtectedLayout title="Profile">
-      <div className="flex justify-between items-center">
-        <div>
-          <h1 className="text-xl font-medium">{user.name}</h1>
-          {user.username && (
-            <p className="font-light text-sm text-primary/80">
-              @{user.username}
-            </p>
-          )}
-        </div>
-
-        <div className="relative rounded-full size-12 overflow-hidden">
-          <Image
-            src="/images/avatar.png"
-            alt={`Avatar of ${user.name}`}
-            fill
-            className="object-cover"
-          />
-        </div>
-      </div>
+      <UserProfile user={user} />
     </ProtectedLayout>
   );
 };
