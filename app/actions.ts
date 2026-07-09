@@ -14,10 +14,19 @@ export async function getSession() {
   }
 }
 
-export async function getUserById(id: string) {
+export async function getUser(ref: {
+  isYourProfile?: boolean;
+  id?: string;
+  username?: string;
+}) {
   try {
+    const session = ref.isYourProfile ? await getSession() : null;
+
     return await prisma.user.findUnique({
-      where: { id },
+      where: {
+        id: ref.isYourProfile ? session?.user.id : ref.id,
+        username: ref.username,
+      },
       select: {
         id: true,
         name: true,

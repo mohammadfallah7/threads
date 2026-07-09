@@ -1,12 +1,22 @@
-import { User } from "@/types";
+import { getUser } from "@/app/actions";
 import { FC } from "react";
 import { Avatar } from "./avatar";
 
 interface UserProfileProps {
-  user: User;
+  isYourProfile?: boolean;
+  id?: string;
+  username?: string;
 }
 
-export const UserProfile: FC<UserProfileProps> = ({ user }) => {
+export const UserProfile: FC<UserProfileProps> = async ({
+  isYourProfile,
+  id,
+  username,
+}) => {
+  const user = await getUser({ isYourProfile, id, username });
+
+  if (!user) throw new Error("Profile not found");
+
   return (
     <div className="space-y-4">
       <div className="flex justify-between items-center">

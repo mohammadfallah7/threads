@@ -1,15 +1,12 @@
-import { getSession, getUserById } from "@/app/actions";
-import { ProtectedLayout, UserProfile } from "@/components";
+import { LoadingSpinner, ProtectedLayout, UserProfile } from "@/components";
+import { Suspense } from "react";
 
 const ProfilePage = async () => {
-  const session = await getSession();
-  const user = await getUserById(session!.user.id);
-
-  if (!user) throw new Error("Profile not found");
-
   return (
     <ProtectedLayout title="Profile">
-      <UserProfile user={user} />
+      <Suspense fallback={<LoadingSpinner />}>
+        <UserProfile isYourProfile />
+      </Suspense>
     </ProtectedLayout>
   );
 };
