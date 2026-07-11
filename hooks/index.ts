@@ -1,5 +1,7 @@
+export * from "./use-edit-profile";
 export * from "./use-login";
 export * from "./use-logout";
+export * from "./use-modal";
 export * from "./use-register";
 export * from "./use-session";
 export * from "./use-setup-username";

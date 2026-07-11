@@ -38,6 +38,26 @@
   .aside-link {
     @apply p-4 rounded-md transition-colors duration-300 hover:text-primary md:hover:text-muted md:hover:bg-surface;
   }
+
+  .label {
+    @apply text-muted text-[13px];
+  }
+
+  .input {
+    @apply border border-border outline-none px-3 py-2 rounded-lg text-sm hover:bg-surface-hover transition-colors duration-300;
+  }
+
+  .textarea {
+    @apply border border-border outline-none px-3 py-2 rounded-lg text-sm hover:bg-surface-hover transition-colors duration-300 resize-none;
+  }
+
+  .btn {
+    @apply border px-4 py-2 rounded-lg text-sm font-medium cursor-pointer;
+  }
+
+  .btn-primary {
+    @apply bg-primary text-background hover:bg-primary/70 transition-colors duration-300 flex items-center justify-center gap-2 disabled:opacity-50;
+  }
 }
 
 body {

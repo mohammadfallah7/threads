@@ -1,3 +1,6 @@
+import { EditProfileSchema } from "@/schemas";
+import z from "zod";
+
 export type User = {
   id: string;
   name: string;
@@ -7,3 +10,5 @@ export type User = {
   bio: string | null;
   _count: { followers: number; following: number; posts: number };
 };
+
+export type EditProfilePayload = z.infer<typeof EditProfileSchema>;

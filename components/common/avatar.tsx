@@ -14,7 +14,11 @@ export const Avatar: FC<AvatarProps> = ({ alt, src, size = 50 }) => {
       style={{ width: size, height: size }}
     >
       <Image
-        src={src ?? "/images/avatar.png"}
+        src={
+          src
+            ? `${process.env.NEXT_PUBLIC_UPLOADCARE_CDN_CNAME}${src}/`
+            : "/images/avatar.png"
+        }
         alt={alt}
         fill
         className="object-cover"

@@ -1,6 +1,7 @@
 import { getUser } from "@/app/actions";
 import { FC } from "react";
 import { Avatar } from "./avatar";
+import { EditProfileButton } from "./edit-profile-button";
 
 interface UserProfileProps {
   isYourProfile?: boolean;
@@ -41,9 +42,7 @@ export const UserProfile: FC<UserProfileProps> = async ({
         {user.bio && <p className="text-sm text-primary/80">{user.bio}</p>}
       </div>
 
-      <button className="border border-border w-full py-1 rounded-lg cursor-pointer hover:bg-surface-hover transition-colors duration-300">
-        Edit Profile
-      </button>
+      {isYourProfile && <EditProfileButton />}
     </div>
   );
 };

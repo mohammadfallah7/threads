@@ -1,5 +1,11 @@
 import { getSession } from "@/app/actions";
-import { DesktopSidebar, MobileSidebar, SessionProvider } from "@/components";
+import {
+  DesktopSidebar,
+  EditProfileModal,
+  MobileSidebar,
+  ModalProvider,
+  SessionProvider,
+} from "@/components";
 import { redirect } from "next/navigation";
 import { FC, ReactNode } from "react";
 
@@ -14,9 +20,12 @@ const ProtectedLayout: FC<ProtectedLayoutProps> = async ({ children }) => {
   return (
     <div>
       <SessionProvider session={session}>
-        {children}
-        <DesktopSidebar />
-        <MobileSidebar />
+        <ModalProvider>
+          {children}
+          <DesktopSidebar />
+          <MobileSidebar />
+          <EditProfileModal />
+        </ModalProvider>
       </SessionProvider>
     </div>
   );
