@@ -1,5 +1,6 @@
 "use client";
 
+import { useModal } from "@/hooks";
 import clsx from "clsx";
 import {
   LucideHeart,
@@ -40,6 +41,7 @@ const navItems = [
 
 export const Navbar = () => {
   const pathname = usePathname();
+  const { openCreatePost } = useModal();
 
   return (
     <ul className="flex md:flex-col items-center justify-around md:justify-center gap-4 w-full">
@@ -57,6 +59,7 @@ export const Navbar = () => {
           </Link>
         ) : (
           <button
+            onClick={openCreatePost}
             key={navItem.id}
             className="px-6 py-3 md:p-4 rounded-md transition-all duration-300 text-primary bg-surface cursor-pointer hover:scale-105 md:hover:opacity-80 md:hover:scale-100"
           >

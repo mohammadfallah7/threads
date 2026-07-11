@@ -1,5 +1,11 @@
+import { FeedTopBar, ProtectedLayout } from "@/components";
+
 const FeedPage = () => {
-  return <div></div>;
+  return (
+    <ProtectedLayout title="For you">
+      <FeedTopBar />
+    </ProtectedLayout>
+  );
 };
 
 export default FeedPage;

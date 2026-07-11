@@ -1,0 +1,32 @@
+import { NextRequest, NextResponse } from "next/server";
+
+export async function POST(req: NextRequest) {
+  const formData = await req.formData();
+
+  const file = formData.get("file");
+
+  if (!(file instanceof File)) {
+    return NextResponse.json(
+      { success: false, error: "No file provided" },
+      { status: 400 },
+    );
+  }
+
+  const uploadForm = new FormData();
+
+  uploadForm.append(
+    "UPLOADCARE_PUB_KEY",
+    process.env.NEXT_PUBLIC_UPLOADCARE_API_KEY!,
+  );
+  uploadForm.append("UPLOADCARE_STORE", "auto");
+  uploadForm.append("file", file);
+
+  const response = await fetch("https://upload.uploadcare.com/base/", {
+    method: "POST",
+    body: uploadForm,
+  });
+
+  const data = await response.json();
+
+  return NextResponse.json(data);
+}
