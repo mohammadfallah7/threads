@@ -34,6 +34,10 @@ export async function getUser(ref: {
         username: true,
         image: true,
         bio: true,
+        followers: {
+          where: { followerId: session?.user.id },
+          select: { followerId: true },
+        },
         _count: { select: { followers: true, following: true, posts: true } },
       },
     });

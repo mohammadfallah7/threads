@@ -2,6 +2,7 @@ import { getUser } from "@/app/actions";
 import { FC } from "react";
 import { Avatar } from "./avatar";
 import { EditProfileButton } from "./edit-profile-button";
+import { ToggleFollowButton } from "./toggle-follow-button";
 
 interface UserProfileProps {
   isYourProfile?: boolean;
@@ -42,7 +43,14 @@ export const UserProfile: FC<UserProfileProps> = async ({
         {user.bio && <p className="text-sm text-primary/80">{user.bio}</p>}
       </div>
 
-      {isYourProfile && <EditProfileButton />}
+      {isYourProfile ? (
+        <EditProfileButton />
+      ) : (
+        <ToggleFollowButton
+          targetUserId={user.id}
+          isAlreadyFollowed={user.followers.length > 0}
+        />
+      )}
     </div>
   );
 };

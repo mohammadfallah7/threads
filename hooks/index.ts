@@ -5,3 +5,4 @@ export * from "./use-modal";
 export * from "./use-register";
 export * from "./use-session";
 export * from "./use-setup-username";
+export * from "./use-toggle-follow";

@@ -13,7 +13,7 @@ export const Modal: FC<ModalProps> = ({ isOpen, children, onClose, title }) => {
   return (
     <div
       className={clsx(
-        "fixed inset-0 z-150 duration-700 transition-all flex items-center justify-center px-4",
+        "fixed inset-0 z-250 duration-700 transition-all flex items-center justify-center px-4",
         {
           "opacity-100": isOpen,
           "opacity-0 pointer-events-none": !isOpen,

@@ -22,9 +22,9 @@ const ProtectedLayout: FC<ProtectedLayoutProps> = async ({ children }) => {
       <SessionProvider session={session}>
         <ModalProvider>
           {children}
+          <EditProfileModal />
           <DesktopSidebar />
           <MobileSidebar />
-          <EditProfileModal />
         </ModalProvider>
       </SessionProvider>
     </div>
