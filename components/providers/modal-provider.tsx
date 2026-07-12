@@ -9,6 +9,9 @@ type ModalContextType = {
   isCreatePostOpen: boolean;
   openCreatePost: () => void;
   closeCreatePost: () => void;
+  isDeletePostOpen: boolean;
+  openDeletePost: () => void;
+  closeDeletePost: () => void;
 };
 
 export const ModalContext = createContext<ModalContextType>(
@@ -18,14 +21,23 @@ export const ModalContext = createContext<ModalContextType>(
 export const ModalProvider = ({ children }: { children: ReactNode }) => {
   const [isEditProfileOpen, setIsEditProfileOpen] = useState(false);
   const [isCreatePostOpen, setIsCreatePostOpen] = useState(false);
+  const [isDeletePostOpen, setIsDeletePostOpen] = useState(false);
 
   function openEditProfile() {
     setIsEditProfileOpen(true);
     setIsCreatePostOpen(false);
+    setIsDeletePostOpen(false);
   }
 
   function openCreatePost() {
     setIsCreatePostOpen(true);
+    setIsEditProfileOpen(false);
+    setIsDeletePostOpen(false);
+  }
+
+  function openDeletePost() {
+    setIsDeletePostOpen(true);
+    setIsCreatePostOpen(false);
     setIsEditProfileOpen(false);
   }
 
@@ -37,6 +49,10 @@ export const ModalProvider = ({ children }: { children: ReactNode }) => {
     setIsCreatePostOpen(false);
   }
 
+  function closeDeletePost() {
+    setIsDeletePostOpen(false);
+  }
+
   return (
     <ModalContext.Provider
       value={{
@@ -46,6 +62,9 @@ export const ModalProvider = ({ children }: { children: ReactNode }) => {
         closeCreatePost,
         isCreatePostOpen,
         openCreatePost,
+        closeDeletePost,
+        isDeletePostOpen,
+        openDeletePost,
       }}
     >
       {children}

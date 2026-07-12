@@ -21,12 +21,15 @@ export async function POST(req: NextRequest) {
   uploadForm.append("UPLOADCARE_STORE", "auto");
   uploadForm.append("file", file);
 
-  const response = await fetch("https://upload.uploadcare.com/base/", {
-    method: "POST",
-    body: uploadForm,
-  });
+  try {
+    const response = await fetch("https://upload.uploadcare.com/base/", {
+      method: "POST",
+      body: uploadForm,
+    });
+    const data = await response.json();
 
-  const data = await response.json();
-
-  return NextResponse.json(data);
+    return NextResponse.json(data);
+  } catch (error) {
+    return NextResponse.json(error);
+  }
 }

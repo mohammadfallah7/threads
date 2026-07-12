@@ -1,9 +1,20 @@
-import { FeedTopBar, ProtectedLayout } from "@/components";
+import {
+  FeedTopBar,
+  LoadingSpinner,
+  PostsList,
+  ProtectedLayout,
+} from "@/components";
+import { Suspense } from "react";
 
 const FeedPage = () => {
   return (
     <ProtectedLayout title="For you">
-      <FeedTopBar />
+      <div className="space-y-4">
+        <FeedTopBar />
+        <Suspense fallback={<LoadingSpinner />}>
+          <PostsList />
+        </Suspense>
+      </div>
     </ProtectedLayout>
   );
 };

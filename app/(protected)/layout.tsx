@@ -1,10 +1,12 @@
 import { getSession } from "@/app/actions";
 import {
   CreatePostModal,
+  DeletePostModal,
   DesktopSidebar,
   EditProfileModal,
   MobileSidebar,
   ModalProvider,
+  SelectedPostProvider,
   SessionProvider,
 } from "@/components";
 import { redirect } from "next/navigation";
@@ -21,13 +23,16 @@ const ProtectedLayout: FC<ProtectedLayoutProps> = async ({ children }) => {
   return (
     <div>
       <SessionProvider session={session}>
-        <ModalProvider>
-          {children}
-          <EditProfileModal />
-          <CreatePostModal />
-          <DesktopSidebar />
-          <MobileSidebar />
-        </ModalProvider>
+        <SelectedPostProvider>
+          <ModalProvider>
+            {children}
+            <EditProfileModal />
+            <CreatePostModal />
+            <DeletePostModal />
+            <DesktopSidebar />
+            <MobileSidebar />
+          </ModalProvider>
+        </SelectedPostProvider>
       </SessionProvider>
     </div>
   );

@@ -130,15 +130,16 @@ export const CreatePostModal = () => {
                     )}
                   </div>
                 )}
-                {!uploadImageStatus && (
-                  <button
-                    type="button"
-                    onClick={() => setPreviewImage(undefined)}
-                    className="z-20 cursor-pointer absolute top-3 right-3 bg-background/70 p-1.5 rounded-full hover:bg-background/90 transition-colors duration-300"
-                  >
-                    <LucideX className="size-4" />
-                  </button>
-                )}
+                {uploadImageStatus !== "pending" &&
+                  uploadImageStatus !== "success" && (
+                    <button
+                      type="button"
+                      onClick={() => setPreviewImage(undefined)}
+                      className="z-20 cursor-pointer absolute top-3 right-3 bg-background/70 p-1.5 rounded-full hover:bg-background/90 transition-colors duration-300"
+                    >
+                      <LucideX className="size-4" />
+                    </button>
+                  )}
                 <Image
                   alt="Test"
                   src={previewImage}
@@ -178,7 +179,9 @@ export const CreatePostModal = () => {
 
         <button
           type="submit"
-          disabled={isPending || (!content && !image)}
+          disabled={
+            isPending || (!content && !image) || uploadImageStatus === "pending"
+          }
           className="btn btn-outline btn-sm self-end"
         >
           {isPending && <LucideLoader className="size-4 animate-spin" />}
