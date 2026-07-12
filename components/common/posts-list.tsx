@@ -5,10 +5,10 @@ export const PostsList = async () => {
   const posts = await getPosts();
 
   return (
-    <ul className="space-y-4">
+    <div className="space-y-4">
       {posts.map((post) => (
-        <PostCard post={post} key={post.id} showPostActions />
+        <PostCard post={post} key={post.id} showPostActions isInFeedPage />
       ))}
-    </ul>
+    </div>
   );
 };

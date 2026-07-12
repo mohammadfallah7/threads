@@ -3,6 +3,7 @@
 import { useModal, useSelectedPost, useSession } from "@/hooks";
 import { createImageURL } from "@/lib/utils";
 import type { Post } from "@/types";
+import clsx from "clsx";
 import {
   LucideEllipsis,
   LucideMessageCircle,
@@ -18,9 +19,14 @@ import { LikeButton } from "./like-button";
 interface PostCardProps {
   post: Post;
   showPostActions?: boolean;
+  isInFeedPage?: boolean;
 }
 
-export const PostCard: FC<PostCardProps> = ({ post, showPostActions }) => {
+export const PostCard: FC<PostCardProps> = ({
+  post,
+  showPostActions,
+  isInFeedPage,
+}) => {
   const { session } = useSession();
   const [showMenu, setShowMenu] = useState(false);
   const { openDeletePost } = useModal();
@@ -30,8 +36,8 @@ export const PostCard: FC<PostCardProps> = ({ post, showPostActions }) => {
   const initialIsLiked = post.likes.length > 0;
 
   return (
-    <li className="border-b border-border pb-4">
-      <div className="space-y-3 px-3">
+    <div className="border-b border-border pb-4">
+      <div className={clsx("space-y-3", { "px-3": isInFeedPage })}>
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Avatar
@@ -49,7 +55,7 @@ export const PostCard: FC<PostCardProps> = ({ post, showPostActions }) => {
               {moment(post.createdAt).fromNow()}
             </span>
           </div>
-          {isUserPost && showPostActions && (
+          {isUserPost && isInFeedPage && (
             <div className="relative">
               <button
                 onClick={() => {
@@ -76,25 +82,52 @@ export const PostCard: FC<PostCardProps> = ({ post, showPostActions }) => {
           )}
         </div>
 
-        {post.content && (
-          <p className="wrap-break-word whitespace-pre-wrap text-primary/80 text-sm">
-            {post.content}
-          </p>
-        )}
+        {isInFeedPage ? (
+          <Link href={`/feed/${post.id}`} className="space-y-3">
+            {post.content && (
+              <p className="wrap-break-word whitespace-pre-wrap text-primary/80 text-sm">
+                {post.content}
+              </p>
+            )}
 
-        {post.image && (
-          <div className="relative aspect-square overflow-hidden rounded-xl h-80">
-            <Image
-              alt={`Image of ${post.content || post.id}`}
-              src={createImageURL(post.image)}
-              fill
-              className="object-cover"
-            />
-          </div>
+            {post.image && (
+              <div className="relative aspect-square overflow-hidden rounded-xl h-80">
+                <Image
+                  alt={`Image of ${post.content || post.id}`}
+                  src={createImageURL(post.image)}
+                  fill
+                  className="object-cover"
+                />
+              </div>
+            )}
+          </Link>
+        ) : (
+          <>
+            {post.content && (
+              <p className="wrap-break-word whitespace-pre-wrap text-primary/80 text-sm">
+                {post.content}
+              </p>
+            )}
+
+            {post.image && (
+              <div className="relative aspect-square overflow-hidden rounded-xl h-80">
+                <Image
+                  alt={`Image of ${post.content || post.id}`}
+                  src={createImageURL(post.image)}
+                  fill
+                  className="object-cover"
+                />
+              </div>
+            )}
+          </>
         )}
 
         {showPostActions && (
-          <div className="flex items-center gap-4">
+          <div
+            className={clsx("flex items-center gap-4", {
+              "mt-3": isInFeedPage,
+            })}
+          >
             <LikeButton
               initialLikeCount={post._count.likes}
               initialIsLiked={initialIsLiked}
@@ -108,6 +141,6 @@ export const PostCard: FC<PostCardProps> = ({ post, showPostActions }) => {
           </div>
         )}
       </div>
-    </li>
+    </div>
   );
 };
