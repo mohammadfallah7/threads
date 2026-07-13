@@ -9,5 +9,6 @@ export * from "./navbar";
 export * from "./post-card";
 export * from "./posts-list";
 export * from "./toggle-follow-button";
-export * from "./user-profile";
 export * from "./update-comment-form";
+export * from "./update-post-form";
+export * from "./user-profile";

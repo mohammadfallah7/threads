@@ -14,3 +14,4 @@ export * from "./use-setup-username";
 export * from "./use-toggle-follow";
 export * from "./use-toggle-like";
 export * from "./use-update-comment";
+export * from "./use-update-post";

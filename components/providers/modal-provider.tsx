@@ -21,6 +21,9 @@ type ModalContextType = {
   isUpdateCommentOpen: boolean;
   openUpdateComment: () => void;
   closeUpdateComment: () => void;
+  isUpdatePostOpen: boolean;
+  openUpdatePost: () => void;
+  closeUpdatePost: () => void;
 };
 
 export const ModalContext = createContext<ModalContextType>(
@@ -34,6 +37,7 @@ export const ModalProvider = ({ children }: { children: ReactNode }) => {
   const [isDeletePostOpen, setIsDeletePostOpen] = useState(false);
   const [isDeleteCommentOpen, setIsDeleteCommentOpen] = useState(false);
   const [isUpdateCommentOpen, setIsUpdateCommentOpen] = useState(false);
+  const [isUpdatePostOpen, setIsUpdatePostOpen] = useState(false);
 
   function openEditProfile() {
     setIsEditProfileOpen(true);
@@ -42,6 +46,7 @@ export const ModalProvider = ({ children }: { children: ReactNode }) => {
     setIsCreatePostOpen(false);
     setIsDeletePostOpen(false);
     setIsCreateReplyOpen(false);
+    setIsUpdatePostOpen(false);
   }
 
   function openCreatePost() {
@@ -51,6 +56,7 @@ export const ModalProvider = ({ children }: { children: ReactNode }) => {
     setIsEditProfileOpen(false);
     setIsDeletePostOpen(false);
     setIsCreateReplyOpen(false);
+    setIsUpdatePostOpen(false);
   }
 
   function openDeletePost() {
@@ -60,6 +66,7 @@ export const ModalProvider = ({ children }: { children: ReactNode }) => {
     setIsCreatePostOpen(false);
     setIsEditProfileOpen(false);
     setIsCreateReplyOpen(false);
+    setIsUpdatePostOpen(false);
   }
 
   function openDeleteComment() {
@@ -69,10 +76,22 @@ export const ModalProvider = ({ children }: { children: ReactNode }) => {
     setIsCreatePostOpen(false);
     setIsEditProfileOpen(false);
     setIsCreateReplyOpen(false);
+    setIsUpdatePostOpen(false);
   }
 
   function openUpdateComment() {
     setIsUpdateCommentOpen(true);
+    setIsDeleteCommentOpen(false);
+    setIsDeletePostOpen(false);
+    setIsCreatePostOpen(false);
+    setIsEditProfileOpen(false);
+    setIsCreateReplyOpen(false);
+    setIsUpdatePostOpen(false);
+  }
+
+  function openUpdatePost() {
+    setIsUpdatePostOpen(true);
+    setIsUpdateCommentOpen(false);
     setIsDeleteCommentOpen(false);
     setIsDeletePostOpen(false);
     setIsCreatePostOpen(false);
@@ -87,6 +106,7 @@ export const ModalProvider = ({ children }: { children: ReactNode }) => {
     setIsDeletePostOpen(false);
     setIsCreatePostOpen(false);
     setIsEditProfileOpen(false);
+    setIsUpdatePostOpen(false);
   }
 
   function closeEditProfile() {
@@ -107,6 +127,10 @@ export const ModalProvider = ({ children }: { children: ReactNode }) => {
 
   function closeUpdateComment() {
     setIsUpdateCommentOpen(false);
+  }
+
+  function closeUpdatePost() {
+    setIsUpdatePostOpen(false);
   }
 
   function closeCreateReply() {
@@ -134,6 +158,9 @@ export const ModalProvider = ({ children }: { children: ReactNode }) => {
         isUpdateCommentOpen,
         openDeleteComment,
         openUpdateComment,
+        closeUpdatePost,
+        isUpdatePostOpen,
+        openUpdatePost,
       }}
     >
       {children}

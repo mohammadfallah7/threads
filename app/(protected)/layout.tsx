@@ -12,6 +12,7 @@ import {
   SelectedPostProvider,
   SessionProvider,
   UpdateCommentModal,
+  UpdatePostModal,
 } from "@/components";
 import { redirect } from "next/navigation";
 import { FC, ReactNode } from "react";
@@ -37,6 +38,7 @@ const ProtectedLayout: FC<ProtectedLayoutProps> = async ({ children }) => {
               <CreateReplyModal />
               <DeleteCommentModal />
               <UpdateCommentModal />
+              <UpdatePostModal />
               <DesktopSidebar />
               <MobileSidebar />
             </ModalProvider>

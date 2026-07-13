@@ -95,6 +95,36 @@ export async function deletePost(postId: string) {
   }
 }
 
+export async function updatePost(payload: {
+  postId: string;
+  content?: string | null;
+}) {
+  try {
+    const session = await getSession();
+    if (!session) return { success: false, error: "Unauthorized" };
+
+    const post = await prisma.post.findUnique({
+      where: { id: payload.postId },
+      select: { id: true, authorId: true },
+    });
+    if (!post) return { success: false, error: "Post not found" };
+    if (post.authorId !== session.user.id) {
+      return { success: false, error: "Unauthorized" };
+    }
+
+    await prisma.post.update({
+      where: { id: post.id },
+      data: { content: payload.content },
+    });
+    return { success: true, response: "Post updated successfully" };
+  } catch (error) {
+    const errorMessage =
+      error instanceof Error ? error.message : "Something went wrong";
+
+    return { success: false, error: errorMessage };
+  }
+}
+
 export async function getPosts() {
   try {
     const session = await getSession();

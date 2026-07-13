@@ -9,7 +9,7 @@ import {
   LucideX,
 } from "lucide-react";
 import Image from "next/image";
-import { SubmitEvent, useRef, useState } from "react";
+import { SubmitEvent, useEffect, useRef, useState } from "react";
 import { Avatar } from "../common";
 import { Modal } from "../ui";
 
@@ -35,6 +35,12 @@ export const CreatePostModal = () => {
     setUploadImageStatus(undefined);
     closeCreatePost();
   });
+
+  useEffect(() => {
+    return () => {
+      if (previewImage.startsWith("blob:")) URL.revokeObjectURL(previewImage);
+    };
+  }, [previewImage]);
 
   async function handleSubmit(e: SubmitEvent<HTMLFormElement>) {
     e.preventDefault();

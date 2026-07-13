@@ -7,6 +7,7 @@ import clsx from "clsx";
 import {
   LucideEllipsis,
   LucideMessageCircle,
+  LucidePen,
   LucideTrash2,
 } from "lucide-react";
 import moment from "moment";
@@ -29,7 +30,7 @@ export const PostCard: FC<PostCardProps> = ({
 }) => {
   const { session } = useSession();
   const [showMenu, setShowMenu] = useState(false);
-  const { openDeletePost, openCreateReply } = useModal();
+  const { openDeletePost, openCreateReply, openUpdatePost } = useModal();
   const { setSelectedPost } = useSelectedPost();
 
   const isUserPost = session?.user.id === post.author.id;
@@ -70,11 +71,23 @@ export const PostCard: FC<PostCardProps> = ({
                   <button
                     className="cursor-pointer"
                     onClick={() => {
-                      openDeletePost();
                       setSelectedPost(post);
+                      setShowMenu(false);
+                      openDeletePost();
                     }}
                   >
                     <LucideTrash2 className="size-4" />
+                  </button>
+                  <div className="bg-primary/80 h-px w-full" />
+                  <button
+                    className="cursor-pointer"
+                    onClick={() => {
+                      setSelectedPost(post);
+                      setShowMenu(false);
+                      openUpdatePost();
+                    }}
+                  >
+                    <LucidePen className="size-4" />
                   </button>
                 </div>
               )}
