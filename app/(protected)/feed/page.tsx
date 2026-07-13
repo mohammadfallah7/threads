@@ -6,6 +6,8 @@ import {
 } from "@/components";
 import { Suspense } from "react";
 
+export const dynamic = "force-dynamic";
+
 const FeedPage = () => {
   return (
     <ProtectedLayout title="For you">

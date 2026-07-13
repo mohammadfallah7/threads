@@ -1,6 +1,8 @@
 import { ProtectedLayout, LoadingSpinner, UserProfile } from "@/components";
 import { Suspense } from "react";
 
+export const dynamic = "force-dynamic";
+
 const UserProfilePage = async ({
   params,
 }: {

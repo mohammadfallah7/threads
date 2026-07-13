@@ -2,6 +2,8 @@ import { getSession } from "@/app/actions";
 import { AuthLayout, RegisterForm } from "@/components";
 import { redirect } from "next/navigation";
 
+export const dynamic = "force-dynamic";
+
 const RegisterPage = async () => {
   const session = await getSession();
   if (session?.user) redirect("/setup-username");

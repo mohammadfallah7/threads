@@ -1,6 +1,8 @@
 import { redirect } from "next/navigation";
 import { getSession } from "./actions";
 
+export const dynamic = "force-dynamic";
+
 const HomePage = async () => {
   const session = await getSession();
 

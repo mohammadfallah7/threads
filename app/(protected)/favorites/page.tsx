@@ -2,6 +2,8 @@ import { PostCard, ProtectedLayout } from "@/components";
 import { getLikedPosts } from "./actions";
 import { LucideClipboard } from "lucide-react";
 
+export const dynamic = "force-dynamic";
+
 const FavoritesPage = async () => {
   const likedPosts = await getLikedPosts();
 
