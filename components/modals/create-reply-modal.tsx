@@ -78,7 +78,7 @@ export const CreateReplyModal = () => {
         </div>
 
         <button
-          disabled={isPending}
+          disabled={isPending || !content}
           type="submit"
           className="btn btn-outline btn-sm self-end"
         >

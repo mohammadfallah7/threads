@@ -20,9 +20,9 @@ export async function getUser(ref: {
   username?: string;
 }) {
   try {
-    const session = ref.isYourProfile ? await getSession() : null;
+    const session = await getSession();
 
-    return await prisma.user.findUnique({
+    return prisma.user.findUnique({
       where: {
         id: ref.isYourProfile ? session?.user.id : ref.id,
         username: ref.username,

@@ -15,6 +15,12 @@ type ModalContextType = {
   isCreateReplyOpen: boolean;
   openCreateReply: () => void;
   closeCreateReply: () => void;
+  isDeleteCommentOpen: boolean;
+  openDeleteComment: () => void;
+  closeDeleteComment: () => void;
+  isUpdateCommentOpen: boolean;
+  openUpdateComment: () => void;
+  closeUpdateComment: () => void;
 };
 
 export const ModalContext = createContext<ModalContextType>(
@@ -24,11 +30,15 @@ export const ModalContext = createContext<ModalContextType>(
 export const ModalProvider = ({ children }: { children: ReactNode }) => {
   const [isEditProfileOpen, setIsEditProfileOpen] = useState(false);
   const [isCreatePostOpen, setIsCreatePostOpen] = useState(false);
-  const [isDeletePostOpen, setIsDeletePostOpen] = useState(false);
   const [isCreateReplyOpen, setIsCreateReplyOpen] = useState(false);
+  const [isDeletePostOpen, setIsDeletePostOpen] = useState(false);
+  const [isDeleteCommentOpen, setIsDeleteCommentOpen] = useState(false);
+  const [isUpdateCommentOpen, setIsUpdateCommentOpen] = useState(false);
 
   function openEditProfile() {
     setIsEditProfileOpen(true);
+    setIsDeleteCommentOpen(false);
+    setIsUpdateCommentOpen(false);
     setIsCreatePostOpen(false);
     setIsDeletePostOpen(false);
     setIsCreateReplyOpen(false);
@@ -36,6 +46,8 @@ export const ModalProvider = ({ children }: { children: ReactNode }) => {
 
   function openCreatePost() {
     setIsCreatePostOpen(true);
+    setIsDeleteCommentOpen(false);
+    setIsUpdateCommentOpen(false);
     setIsEditProfileOpen(false);
     setIsDeletePostOpen(false);
     setIsCreateReplyOpen(false);
@@ -43,6 +55,26 @@ export const ModalProvider = ({ children }: { children: ReactNode }) => {
 
   function openDeletePost() {
     setIsDeletePostOpen(true);
+    setIsDeleteCommentOpen(false);
+    setIsUpdateCommentOpen(false);
+    setIsCreatePostOpen(false);
+    setIsEditProfileOpen(false);
+    setIsCreateReplyOpen(false);
+  }
+
+  function openDeleteComment() {
+    setIsDeleteCommentOpen(true);
+    setIsUpdateCommentOpen(false);
+    setIsDeletePostOpen(false);
+    setIsCreatePostOpen(false);
+    setIsEditProfileOpen(false);
+    setIsCreateReplyOpen(false);
+  }
+
+  function openUpdateComment() {
+    setIsUpdateCommentOpen(true);
+    setIsDeleteCommentOpen(false);
+    setIsDeletePostOpen(false);
     setIsCreatePostOpen(false);
     setIsEditProfileOpen(false);
     setIsCreateReplyOpen(false);
@@ -50,6 +82,8 @@ export const ModalProvider = ({ children }: { children: ReactNode }) => {
 
   function openCreateReply() {
     setIsCreateReplyOpen(true);
+    setIsUpdateCommentOpen(false);
+    setIsDeleteCommentOpen(false);
     setIsDeletePostOpen(false);
     setIsCreatePostOpen(false);
     setIsEditProfileOpen(false);
@@ -65,6 +99,14 @@ export const ModalProvider = ({ children }: { children: ReactNode }) => {
 
   function closeDeletePost() {
     setIsDeletePostOpen(false);
+  }
+
+  function closeDeleteComment() {
+    setIsDeleteCommentOpen(false);
+  }
+
+  function closeUpdateComment() {
+    setIsUpdateCommentOpen(false);
   }
 
   function closeCreateReply() {
@@ -86,6 +128,12 @@ export const ModalProvider = ({ children }: { children: ReactNode }) => {
         closeCreateReply,
         isCreateReplyOpen,
         openCreateReply,
+        closeDeleteComment,
+        closeUpdateComment,
+        isDeleteCommentOpen,
+        isUpdateCommentOpen,
+        openDeleteComment,
+        openUpdateComment,
       }}
     >
       {children}

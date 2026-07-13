@@ -32,6 +32,7 @@ export const CreatePostModal = () => {
     setContent("");
     setPreviewImage("");
     setImage(undefined);
+    setUploadImageStatus(undefined);
     closeCreatePost();
   });
 
