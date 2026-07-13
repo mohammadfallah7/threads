@@ -2,7 +2,7 @@
 
 import { getSession } from "@/app/actions";
 import prisma from "@/lib/prisma";
-import { CreatePostPayload } from "@/types";
+import { CreateCommentPayload, CreatePostPayload } from "@/types";
 import { revalidatePath } from "next/cache";
 
 export async function createPost(payload: CreatePostPayload) {
@@ -17,6 +17,30 @@ export async function createPost(payload: CreatePostPayload) {
 
     revalidatePath("/feed");
     return { success: true, response: post };
+  } catch (error) {
+    const errorMessage =
+      error instanceof Error ? error.message : "Something went wrong";
+
+    return { success: false, error: errorMessage };
+  }
+}
+
+export async function createComment(payload: CreateCommentPayload) {
+  try {
+    const session = await getSession();
+    if (!session) return { success: false, error: "Unauthorized" };
+
+    const comment = await prisma.comment.create({
+      data: { authorId: session.user.id, ...payload },
+      select: {
+        id: true,
+        content: true,
+        createdAt: true,
+        author: { select: { id: true, name: true, username: true } },
+      },
+    });
+
+    return { success: true, response: comment };
   } catch (error) {
     const errorMessage =
       error instanceof Error ? error.message : "Something went wrong";

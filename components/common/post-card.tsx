@@ -29,7 +29,7 @@ export const PostCard: FC<PostCardProps> = ({
 }) => {
   const { session } = useSession();
   const [showMenu, setShowMenu] = useState(false);
-  const { openDeletePost } = useModal();
+  const { openDeletePost, openCreateReply } = useModal();
   const { setSelectedPost } = useSelectedPost();
 
   const isUserPost = session?.user.id === post.author.id;
@@ -134,7 +134,13 @@ export const PostCard: FC<PostCardProps> = ({
               postId={post.id}
             />
 
-            <button className="cursor-pointer flex items-center gap-1.5 text-muted hover:bg-surface-hover transition-all duration-300 px-3 py-2 rounded-full">
+            <button
+              onClick={() => {
+                setSelectedPost(post);
+                openCreateReply();
+              }}
+              className="cursor-pointer flex items-center gap-1.5 text-muted hover:bg-surface-hover transition-all duration-300 px-3 py-2 rounded-full"
+            >
               <LucideMessageCircle className="size-5" />
               <span className="text-xs">{post._count.comments}</span>
             </button>

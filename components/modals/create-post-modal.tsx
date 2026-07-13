@@ -24,14 +24,15 @@ export const CreatePostModal = () => {
     "pending" | "success" | "error"
   >();
 
-  const [content, setContent] = useState<string | undefined>();
-  const [previewImage, setPreviewImage] = useState<string | undefined>();
+  const [content, setContent] = useState<string>("");
+  const [previewImage, setPreviewImage] = useState<string>("");
   const [image, setImage] = useState<File | undefined>();
 
   const { mutate, isPending } = useCreatePost(() => {
-    setContent(undefined);
-    setPreviewImage(undefined);
+    setContent("");
+    setPreviewImage("");
     setImage(undefined);
+    closeCreatePost();
   });
 
   async function handleSubmit(e: SubmitEvent<HTMLFormElement>) {
@@ -134,7 +135,7 @@ export const CreatePostModal = () => {
                   uploadImageStatus !== "success" && (
                     <button
                       type="button"
-                      onClick={() => setPreviewImage(undefined)}
+                      onClick={() => setPreviewImage("")}
                       className="z-20 cursor-pointer absolute top-3 right-3 bg-background/70 p-1.5 rounded-full hover:bg-background/90 transition-colors duration-300"
                     >
                       <LucideX className="size-4" />

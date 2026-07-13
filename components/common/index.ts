@@ -1,4 +1,5 @@
 export * from "./avatar";
+export * from "./comments-list";
 export * from "./desktop-sidebar";
 export * from "./follow-search-input";
 export * from "./follow-suggestions";

@@ -1,14 +1,18 @@
-import { createPost } from "@/app/(protected)/feed/actions";
+import { createComment } from "@/app/(protected)/feed/actions";
 import { useMutation } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
-export const useCreatePost = (afterSuccess?: () => void) => {
+export const useCreateComment = (afterSuccess?: () => void) => {
+  const router = useRouter();
+
   return useMutation({
-    mutationFn: createPost,
+    mutationFn: createComment,
     onSuccess: (data) => {
       if (data.success) {
-        toast.success("Post create successfully");
+        toast.success("Comment create successfully");
         afterSuccess?.();
+        router.refresh();
       } else {
         toast.error(data.error);
       }

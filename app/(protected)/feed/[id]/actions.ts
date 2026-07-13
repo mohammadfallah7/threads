@@ -28,3 +28,26 @@ export async function getPost(id: string) {
     );
   }
 }
+
+export async function getComments(id: string) {
+  try {
+    const session = await getSession();
+    if (!session) throw new Error("Unauthorized");
+
+    return await prisma.comment.findMany({
+      where: { postId: id },
+      select: {
+        id: true,
+        content: true,
+        createdAt: true,
+        author: {
+          select: { id: true, image: true, username: true },
+        },
+      },
+    });
+  } catch (error) {
+    throw new Error(
+      error instanceof Error ? error.message : "Something went wrong",
+    );
+  }
+}

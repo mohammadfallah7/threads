@@ -1,6 +1,7 @@
 import { getSession } from "@/app/actions";
 import {
   CreatePostModal,
+  CreateReplyModal,
   DeletePostModal,
   DesktopSidebar,
   EditProfileModal,
@@ -29,6 +30,7 @@ const ProtectedLayout: FC<ProtectedLayoutProps> = async ({ children }) => {
             <EditProfileModal />
             <CreatePostModal />
             <DeletePostModal />
+            <CreateReplyModal />
             <DesktopSidebar />
             <MobileSidebar />
           </ModalProvider>

@@ -1,3 +1,4 @@
+export * from "./use-create-comment";
 export * from "./use-create-post";
 export * from "./use-delete-post";
 export * from "./use-edit-profile";

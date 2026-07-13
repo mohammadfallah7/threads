@@ -1,6 +1,8 @@
+"use client";
+
 import clsx from "clsx";
 import { LucideX } from "lucide-react";
-import { FC, ReactNode } from "react";
+import { FC, ReactNode, useEffect } from "react";
 
 interface ModalProps {
   isOpen: boolean;
@@ -10,10 +12,22 @@ interface ModalProps {
 }
 
 export const Modal: FC<ModalProps> = ({ isOpen, children, onClose, title }) => {
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
+
   return (
     <div
       className={clsx(
-        "fixed inset-0 z-250 duration-700 transition-all flex items-center justify-center px-4",
+        "fixed inset-0 z-250 overflow-y-auto duration-700 transition-all flex items-center justify-center px-4",
         {
           "opacity-100": isOpen,
           "opacity-0 pointer-events-none": !isOpen,
@@ -30,7 +44,7 @@ export const Modal: FC<ModalProps> = ({ isOpen, children, onClose, title }) => {
 
       <div
         className={clsx(
-          "max-w-lg w-full mx-auto border border-border bg-surface rounded-xl p-4 space-y-4 transition-all duration-700 transform",
+          "max-w-lg w-full max-h-[90vh] overflow-y-auto mx-auto border border-border bg-surface rounded-xl p-4 space-y-4 transition-all duration-700 transform",
           { "translate-y-0": isOpen, "translate-y-full": !isOpen },
         )}
       >

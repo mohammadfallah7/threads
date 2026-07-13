@@ -4,7 +4,7 @@ import { FC } from "react";
 interface AvatarProps {
   alt: string;
   src?: string | null;
-  size?: 40 | 50 | 60;
+  size?: 32 | 40 | 50 | 60;
 }
 
 export const Avatar: FC<AvatarProps> = ({ alt, src, size = 50 }) => {
