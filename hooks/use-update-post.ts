@@ -1,16 +1,15 @@
 import { updatePost } from "@/app/(protected)/feed/actions";
-import { useMutation } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 
 export const useUpdatePost = (afterSuccess?: () => void) => {
-  const router = useRouter();
+  const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: updatePost,
     onSuccess: (data) => {
       if (data.success) {
-        router.refresh();
+        queryClient.invalidateQueries({ queryKey: ["posts"] });
         afterSuccess?.();
         toast.success(data.response);
       } else {

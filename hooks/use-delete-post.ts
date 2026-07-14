@@ -1,18 +1,18 @@
 import { deletePost } from "@/app/(protected)/feed/actions";
-import { useMutation } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { useModal } from "./use-modal";
 
 export const useDeletePost = () => {
-  const router = useRouter();
+  const queryClient = useQueryClient();
+
   const { closeDeletePost } = useModal();
 
   return useMutation({
     mutationFn: deletePost,
     onSuccess: (data) => {
       if (data.success) {
-        router.refresh();
+        queryClient.invalidateQueries({ queryKey: ["posts"] });
         closeDeletePost();
         toast.success(data.response);
       } else {

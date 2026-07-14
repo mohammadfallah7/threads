@@ -3,7 +3,6 @@
 import { getSession } from "@/app/actions";
 import prisma from "@/lib/prisma";
 import { CreateCommentPayload, CreatePostPayload } from "@/types";
-import { revalidatePath } from "next/cache";
 
 export async function createPost(payload: CreatePostPayload) {
   try {
@@ -15,7 +14,6 @@ export async function createPost(payload: CreatePostPayload) {
       select: { id: true, content: true, image: true, createdAt: true },
     });
 
-    revalidatePath("/feed");
     return { success: true, response: post };
   } catch (error) {
     const errorMessage =
@@ -125,12 +123,17 @@ export async function updatePost(payload: {
   }
 }
 
-export async function getPosts() {
+export async function getPosts(cursor?: string | null, pageSize: number = 3) {
   try {
     const session = await getSession();
     if (!session) throw new Error("Unauthorized");
 
-    return await prisma.post.findMany({
+    const posts = await prisma.post.findMany({
+      take: pageSize + 1,
+      ...(cursor && {
+        cursor: { id: cursor },
+        skip: 1,
+      }),
       select: {
         id: true,
         content: true,
@@ -144,6 +147,11 @@ export async function getPosts() {
       },
       orderBy: { createdAt: "desc" },
     });
+
+    const hasMore = posts.length > pageSize;
+    if (hasMore) posts.pop();
+
+    return { posts, nextCursor: hasMore ? posts[posts.length - 1].id : null };
   } catch (error) {
     throw new Error(
       error instanceof Error ? error.message : "Something went wrong",
