@@ -15,6 +15,7 @@ export const useDeleteComment = () => {
       if (data.success) {
         router.refresh();
         queryClient.invalidateQueries({ queryKey: ["posts"] });
+        queryClient.invalidateQueries({ queryKey: ["liked-posts"] });
         closeDeleteComment();
         toast.success(data.response);
       } else {

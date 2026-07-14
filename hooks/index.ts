@@ -3,6 +3,7 @@ export * from "./use-create-post";
 export * from "./use-delete-comment";
 export * from "./use-delete-post";
 export * from "./use-edit-profile";
+export * from "./use-infinite-liked-posts";
 export * from "./use-infinite-posts";
 export * from "./use-login";
 export * from "./use-logout";

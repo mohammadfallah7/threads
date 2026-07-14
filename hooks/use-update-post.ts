@@ -10,6 +10,7 @@ export const useUpdatePost = (afterSuccess?: () => void) => {
     onSuccess: (data) => {
       if (data.success) {
         queryClient.invalidateQueries({ queryKey: ["posts"] });
+        queryClient.invalidateQueries({ queryKey: ["liked-posts"] });
         afterSuccess?.();
         toast.success(data.response);
       } else {

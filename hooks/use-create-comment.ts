@@ -13,6 +13,7 @@ export const useCreateComment = (afterSuccess?: () => void) => {
       if (data.success) {
         router.refresh();
         queryClient.invalidateQueries({ queryKey: ["posts"] });
+        queryClient.invalidateQueries({ queryKey: ["liked-posts"] });
         afterSuccess?.();
         toast.success("Comment create successfully");
       } else {

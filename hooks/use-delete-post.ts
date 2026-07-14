@@ -13,6 +13,7 @@ export const useDeletePost = () => {
     onSuccess: (data) => {
       if (data.success) {
         queryClient.invalidateQueries({ queryKey: ["posts"] });
+        queryClient.invalidateQueries({ queryKey: ["liked-posts"] });
         closeDeletePost();
         toast.success(data.response);
       } else {

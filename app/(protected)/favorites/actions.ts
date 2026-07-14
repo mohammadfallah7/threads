@@ -3,12 +3,17 @@
 import { getSession } from "@/app/actions";
 import prisma from "@/lib/prisma";
 
-export async function getLikedPosts() {
+export async function getLikedPosts(
+  cursor?: string | null,
+  pageSize: number = 3,
+) {
   try {
     const session = await getSession();
     if (!session) throw new Error("Unauthorized");
 
-    return await prisma.post.findMany({
+    const posts = await prisma.post.findMany({
+      take: pageSize + 1,
+      ...(cursor && { cursor: { id: cursor }, skip: 1 }),
       where: { likes: { some: { userId: session.user.id } } },
       select: {
         id: true,
@@ -23,6 +28,11 @@ export async function getLikedPosts() {
       },
       orderBy: { createdAt: "desc" },
     });
+
+    const hasMore = posts.length > pageSize;
+    if (hasMore) posts.pop();
+
+    return { posts, nextCursor: hasMore ? posts[posts.length - 1].id : null };
   } catch (error) {
     throw new Error(
       error instanceof Error ? error.message : "Something went wrong",

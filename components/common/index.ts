@@ -4,6 +4,7 @@ export * from "./desktop-sidebar";
 export * from "./follow-search-input";
 export * from "./follow-suggestions";
 export * from "./like-button";
+export * from "./liked-posts-list";
 export * from "./mobile-sidebar";
 export * from "./navbar";
 export * from "./post-card";

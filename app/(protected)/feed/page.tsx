@@ -1,10 +1,4 @@
-import {
-  FeedTopBar,
-  LoadingSpinner,
-  PostsList,
-  ProtectedLayout,
-} from "@/components";
-import { Suspense } from "react";
+import { FeedTopBar, PostsList, ProtectedLayout } from "@/components";
 
 export const dynamic = "force-dynamic";
 
@@ -13,9 +7,7 @@ const FeedPage = () => {
     <ProtectedLayout title="For you">
       <div className="space-y-4">
         <FeedTopBar />
-        <Suspense fallback={<LoadingSpinner />}>
-          <PostsList />
-        </Suspense>
+        <PostsList />
       </div>
     </ProtectedLayout>
   );
