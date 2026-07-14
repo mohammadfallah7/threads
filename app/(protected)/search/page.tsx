@@ -1,10 +1,8 @@
 import {
   FollowSearchInput,
   FollowSuggestions,
-  LoadingSpinner,
   ProtectedLayout,
 } from "@/components";
-import { Suspense } from "react";
 
 export const dynamic = "force-dynamic";
 
@@ -20,9 +18,7 @@ const SearchPage = async ({
       <div className="space-y-4">
         <FollowSearchInput />
         <h1 className="text-muted font-medium">Follow Suggestions</h1>
-        <Suspense fallback={<LoadingSpinner />}>
-          <FollowSuggestions query={query} />
-        </Suspense>
+        <FollowSuggestions query={query} />
       </div>
     </ProtectedLayout>
   );

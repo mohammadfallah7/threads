@@ -67,7 +67,7 @@ export const PostCard: FC<PostCardProps> = ({
                 <LucideEllipsis className="size-5 " />
               </button>
               {showMenu && (
-                <div className="absolute top-6 right-0 flex gap-4 flex-col p-3 rounded-lg bg-surface-hover">
+                <div className="absolute z-10 top-6 right-0 flex gap-4 flex-col p-3 rounded-lg bg-surface-hover">
                   <button
                     className="cursor-pointer"
                     onClick={() => {

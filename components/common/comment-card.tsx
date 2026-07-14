@@ -77,7 +77,9 @@ export const CommentCard: FC<CommentCardProps> = ({ comment }) => {
           </div>
         )}
       </div>
-      <p className="text-sm">{comment.content}</p>
+      <p className="wrap-break-word whitespace-pre-wrap text-primary/80 text-sm">
+        {comment.content}
+      </p>
     </div>
   );
 };
