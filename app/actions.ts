@@ -2,6 +2,7 @@
 
 import { auth } from "@/lib/auth";
 import prisma from "@/lib/prisma";
+import { GetUserPayload } from "@/types";
 import { headers } from "next/headers";
 
 export async function getSession() {
@@ -14,18 +15,14 @@ export async function getSession() {
   }
 }
 
-export async function getUser(ref: {
-  isYourProfile?: boolean;
-  id?: string;
-  username?: string;
-}) {
+export async function getUser(payload: GetUserPayload) {
   try {
     const session = await getSession();
 
     return prisma.user.findUnique({
       where: {
-        id: ref.isYourProfile ? session?.user.id : ref.id,
-        username: ref.username,
+        id: payload.username ? undefined : session?.user.id,
+        username: payload.username,
       },
       select: {
         id: true,
@@ -50,6 +47,14 @@ export async function getUser(ref: {
 
 export async function logout() {
   try {
+    const session = await getSession();
+    if (!session)
+      return {
+        success: false,
+        error: "Unauthorized",
+        status: 401,
+      };
+
     await auth.api.signOut({
       headers: await headers(),
     });
@@ -57,11 +62,12 @@ export async function logout() {
     return {
       success: true,
       response: "May meet again",
+      status: 200,
     };
   } catch (error) {
     const errorMessage =
       error instanceof Error ? error.message : "Something went wrong";
 
-    return { success: false, error: errorMessage };
+    return { success: false, error: errorMessage, status: 500 };
   }
 }

@@ -1,5 +1,9 @@
 import z from "zod";
 
+export const GetUserSchema = z.object({
+  username: z.string().optional(),
+});
+
 export const EditProfileSchema = z.object({
   name: z
     .string()

@@ -23,7 +23,7 @@ export async function getLikedPosts(
         author: {
           select: { id: true, name: true, image: true, username: true },
         },
-        likes: { where: { userId: session.user.id }, select: { id: true } },
+        likes: { where: { userId: session.user.id }, select: { userId: true } },
         _count: { select: { comments: true, likes: true } },
       },
       orderBy: { createdAt: "desc" },

@@ -1,4 +1,4 @@
-import { EditProfileSchema } from "@/schemas";
+import { EditProfileSchema, GetUserSchema } from "@/schemas";
 import z from "zod";
 
 export type User = {
@@ -12,3 +12,5 @@ export type User = {
 };
 
 export type EditProfilePayload = z.infer<typeof EditProfileSchema>;
+
+export type GetUserPayload = z.infer<typeof GetUserSchema>;

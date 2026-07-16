@@ -6,16 +6,14 @@ import { ToggleFollowButton } from "./toggle-follow-button";
 
 interface UserProfileProps {
   isYourProfile?: boolean;
-  id?: string;
   username?: string;
 }
 
 export const UserProfile: FC<UserProfileProps> = async ({
   isYourProfile,
-  id,
   username,
 }) => {
-  const user = await getUser({ isYourProfile, id, username });
+  const user = await getUser({ username });
 
   if (!user) throw new Error("Profile not found");
 

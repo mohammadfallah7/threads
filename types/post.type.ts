@@ -1,7 +1,13 @@
-import { CreateCommentSchema, CreatePostSchema } from "@/schemas";
+import {
+  CreateCommentSchema,
+  CreatePostSchema,
+  UpdatePostSchema,
+} from "@/schemas";
 import z from "zod";
 
 export type CreatePostPayload = z.infer<typeof CreatePostSchema>;
+
+export type UpdatePostPayload = z.infer<typeof UpdatePostSchema>;
 
 export type CreateCommentPayload = z.infer<typeof CreateCommentSchema>;
 
@@ -16,7 +22,7 @@ export type Post = {
     username: string | null;
     image: string | null;
   };
-  likes: { id: string }[];
+  likes: { userId: string }[];
   _count: { comments: number; likes: number };
 };
 

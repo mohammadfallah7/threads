@@ -12,7 +12,9 @@ export const useToggleLike = () => {
     onSuccess: (data) => {
       if (data.success) {
         router.refresh();
+        queryClient.invalidateQueries({ queryKey: ["posts"] });
         queryClient.refetchQueries({ queryKey: ["posts"] });
+        queryClient.invalidateQueries({ queryKey: ["liked-posts"] });
         queryClient.refetchQueries({ queryKey: ["liked-posts"] });
       } else {
         toast.error(data.error);

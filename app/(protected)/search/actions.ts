@@ -4,19 +4,20 @@ import { getSession } from "@/app/actions";
 import prisma from "@/lib/prisma";
 
 export async function getFollowSuggestions(
-  term?: string,
+  term?: string | null,
   cursor?: string | null,
   pageSize: number = 8,
 ) {
   try {
     const session = await getSession();
+    if (!session) throw new Error("Unauthorized");
 
     const users = await prisma.user.findMany({
       where: {
-        NOT: { id: session?.user.id },
+        NOT: { id: session.user.id },
         followers: {
           none: {
-            followerId: session?.user.id,
+            followerId: session.user.id,
           },
         },
         ...(term && {

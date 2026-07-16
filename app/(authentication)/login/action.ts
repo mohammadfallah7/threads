@@ -10,12 +10,10 @@ export async function login(payload: LoginPayload) {
       body: { ...payload },
       headers: await headers(),
     });
-
-    return { success: true, response };
+    return { success: true, response, status: 200 };
   } catch (error) {
     const errorMessage =
       error instanceof Error ? error.message : "Something went wrong";
-
-    return { success: false, error: errorMessage };
+    return { success: false, error: errorMessage, status: 500 };
   }
 }

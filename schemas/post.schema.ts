@@ -15,10 +15,17 @@ export const CreatePostSchema = z
   });
 
 export const CreateCommentSchema = z.object({
-  postId: z.string().min(1, "Post id is required"),
   content: z
     .string()
     .trim()
     .min(3, "Content must be at least 3 characters.")
     .max(200, "Content cannot exceed 200 characters."),
+});
+
+export const UpdatePostSchema = z.object({
+  content: z
+    .string()
+    .trim()
+    .max(200, "Content cannot exceed 200 characters.")
+    .optional(),
 });
