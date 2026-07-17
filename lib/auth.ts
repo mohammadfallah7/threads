@@ -13,4 +13,11 @@ export const auth = betterAuth({
   },
   user: { additionalFields: { bio: { type: "string", required: false } } },
   plugins: [username(), nextCookies()],
+  advanced: {
+    defaultCookieAttributes: {
+      sameSite: "None",
+      secure: true,
+      partitioned: true,
+    },
+  },
 });
